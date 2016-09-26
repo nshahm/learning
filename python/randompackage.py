@@ -10,6 +10,3 @@ for i in range(len(names)):
     random.shuffle(names)
     print (names)
 
-
-# formatting string()
-print ("Hey %s are %s ? " % ('how', 'u'))
