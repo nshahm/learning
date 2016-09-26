@@ -7,7 +7,6 @@ def display (text):
     return
 
 
-
 def sum (a, b):
     c = a + b
     print ('Sum of %d and %d is %d' % (a , b, c))
