@@ -2,7 +2,7 @@ MyVehicle = 'Four wheeler vehicle'
 print ('Showing global scope', MyVehicle)
 
 def show() :
-    global MyVehicle
+    global MyVehicle # Accessing global variable and update it.
     MyVehicle = 'Car'
     print ('Show MyVehicle from ', MyVehicle)
 
