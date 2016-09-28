@@ -1,7 +1,7 @@
-package samples
+package basics
 
 
-import scala.xml._ // import *
+//import scala.xml._ // import *
 import scala.collection.mutable.HashMap // Import specific object
 import scala.collection.immutable.{TreeMap, TreeSet} // Multiple import
 
@@ -13,7 +13,7 @@ object Welcome {
         val (v1:Int, v2:String) = (40, "John") // Tuple syntax in python
         //var v3:Array[Int] = []{1,2,3,4,5}
 
-        println(v1, v2, v3)
+        println (v1, v2)
     }
 
     def blah(text:String) = {
