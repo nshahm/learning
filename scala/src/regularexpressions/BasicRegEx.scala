@@ -5,16 +5,14 @@ import scala.util.matching.Regex.MatchIterator
 
 object BasicRegEx extends App {
 
-  
-//   Create Regex
+  //   Create Regex
   var pattern: Regex = "Scala".r
   val str = "Scala is Scalable and cool"
 
   pattern.findFirstIn(str) // Call method using . or using blank space
   println(pattern findFirstIn str) // or by using blank space
 
-   
-//  Create the RegEx pattern and and apply againist string.
+  //  Create the RegEx pattern and and apply againist string.
   val numPattern: Regex = "[0-9]+".r
   println(numPattern.findAllIn("shahm4567").next())
 
@@ -25,6 +23,13 @@ object BasicRegEx extends App {
   val pattern1 = "(S|s)cala".r
 
   println(pattern1 replaceFirstIn (str, "Java"))
-  println()
+
+  
+//  
+  val pattern2 = new Regex("abl[ae]\\d+")
+  val str2 = "ablaw is able1 and cool"
+
+  println((pattern2 findAllIn str2).mkString(",")) // mkString converts collection to String
+  
 
 }
