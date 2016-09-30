@@ -15,7 +15,4 @@ object HighOrderFunctions extends App {
   def sum (a:Int, b:Int) = a+b
     print (process(sum, 1,2))
     
-    
-    
-  
 }
