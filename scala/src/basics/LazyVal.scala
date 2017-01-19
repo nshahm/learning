@@ -10,6 +10,11 @@ object LazyVal extends App {
   lazy val b = hello // hello not printed as the lazy val will be calling the method only when accessing it
   
   
+  scala.Left
+  scala.Right
+  scala.Either
+  scala.Equiv
+  
 //  println (a)
 //  println(b)
   
