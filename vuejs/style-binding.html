@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>style binding</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+</head>
+<body>
+    <div id="vue-app">
+        <!-- style object syntax -->
+        <div v-bind:style="styleObject">
+            Style using objectSyntax
+        </div>
+
+        <!-- Array syntax -->
+        <div v-bind:style="[baseStyles, overidingStyles]">
+            color with baseStyles and overidingStyles
+        </div>
+
+        <!--  Multiple Values -->
+        <!-- <div v-bind:style="{ display: ['-webkit-box', '-ms-flexbox', 'flex']">
+            abc
+            <!-- <span>a</span>
+            <span>b</span> -->
+        <!-- </div> -->
+
+        <!-- Auto-prefix -->
+        <!-- <div v-bind:style="transform:none">
+
+        </div> -->
+    </div>
+    <script>
+        var vm = new Vue({
+            el :'#vue-app',
+            data: {
+                activeColor : 'red',
+                fontSize: 30,
+                styleObject : {
+                    color : 'red',
+                    fontSize: '36px'
+                },
+                baseStyles : {
+                    'border' : '1px solid red'
+                },
+                
+                overidingStyles : {
+                    'border' : '2px solid blue'
+                }
+            },
+
+        })
+    </script>
+</body>
+</html>

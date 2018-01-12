@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+    <title>todo</title>
+</head>
+<body>
+    <div id="vue-app">
+       <todo></todo>
+    </div> 
+</body>
+
+<script>
+
+    Vue.component('todo', {
+        template : '<h1>Todo</h1>'
+    })
+
+var app = new Vue({
+        el : '#vue-app',
+        data : {
+
+        },
+    })    
+</script>
+
+</html>

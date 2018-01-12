@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+
+<head>
+    <title>
+    </title>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+</head>
+
+<body>
+    <div id="vue-app">
+        <span v-if="show">{{message}}</span>
+        <span v-if="!show">Message not displayed</span>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#vue-app',
+            data: {
+                show: true,
+                message: "Shahm Nattarshah"
+            },
+            created: function () {
+                console.log("created vue instance")
+                console.log("Message = ", this.message)
+            },
+            beforeCreate: function () {
+                console.log("beforeCreate vue instance")
+                console.log("Message = ", this.message)
+            }, 
+            beforeMount: function () {
+                console.log("beforeMount")
+                console.log("Message = ", this.$el)
+            }, 
+            mounted: function () {
+                console.log("mounted")
+                console.log("Message = ", this.$el)
+            }, 
+            beforeUpdate: function () {
+                console.log("beforeUpdate")
+                console.log("Message = ", this.message)
+            }, 
+            updated: function () {
+                console.log("updated")
+                console.log("Updated Message = ", this.message)
+            }, 
+            beforeDestroy: function () {
+                console.log("beforeDestroy")
+                console.log("Message = ", this.message)
+            }, 
+            destroyed: function () {
+                console.log("destroyed")
+                console.log("Message = ", this.message)
+            },
+        })
+       
+
+        setTimeout(() => {
+            app.$data.show=true
+            app.$data.message = "Ghazni Nattarshah"
+        }, 1000);
+       console.log(app.$el === document.getElementById("vue-app"))
+
+       app.$watch('message', function(newValue, oldValue) {
+           console.log("$watch - New Value", newValue)
+           console.log("$watch - OldValue ", oldValue)
+       })
+       
+
+    </script>
+</body>
+
+</html>

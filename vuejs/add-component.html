@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+    <title>add component</title>
+</head>
+
+<body>
+    <div id="vue-app">
+        <add :a="5" v-bind:b="6"></add>
+        <add :a="7" v-bind:b="10"></add>
+    </div>
+</body>
+
+<script>
+    // Props - used to pass data from parent to child componetn
+    // data - Must have a function with return object and use inside componenets
+    //          for any computations inside the componenent
+
+
+    Vue.component('add', {
+        template: `
+        <div>
+                <span>
+                    A : {{a}}
+                </span>
+                <span>
+                    B : {{b}}
+                </span>
+                <button v-on:click="calculateAdd">Add</button>
+                Result : {{c}}
+            
+            </div>
+        `,
+        props: ['a', 'b'],
+        data: function () {
+            return {
+                c: 0
+            }
+        },
+        // created : function() {
+        //     if (this.c === undefined) {
+        //         this.c = 0
+        //     }
+        // },
+        methods: {
+            calculateAdd: function () {
+                console.log('entered')
+                this.c = this.a + this.b
+                console.log(this.c)
+            }
+        }
+    })
+
+    var app = new Vue({
+        el: '#vue-app',
+        data: {
+
+        },
+    })    
+</script>
+
+</html>

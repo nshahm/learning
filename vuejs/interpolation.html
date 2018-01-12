@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+
+<head>
+    <title>
+    </title>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+</head>
+
+<body>
+    <div id="vue-app">
+        <div>{{message}}</div>
+        <span v-once>This message will not change : {{ message }}</span>
+        <div>
+        Using interpolation : {{htmlstring}}
+        </div>
+        Using v-html directive: <span v-html="htmlstring"></span>
+
+        <div v-bind:id="'prefix-' + id">id-div</div>
+        <span v-bind:disabled="isDisabled">Disabled Span</span>
+        <button :id="id + '-btn'" @click="showMessage('Invoked using @click')"> shorthand :id, @click</button>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#vue-app',
+            data: {
+                show: false,
+                message: "Original message",
+                htmlstring: "<span style=\"color:blue\">This is blue</span>",
+                id: "id",
+                isDisabled:true
+            },
+            methods: {
+                showMessage: function(text) {
+                    alert(text)
+                }
+            }
+        })
+        setTimeout(() => {
+            app.$data.message = "Updated message"
+        }, 1000);
+    </script>
+</body>
+
+</html>

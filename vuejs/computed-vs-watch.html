@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+
+<head>
+    <title>
+    </title>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+</head>
+
+<body>
+    <div id="demo">
+        <div>{{ fullName }}</div>
+        <div>{{ fullNameComputed }}</div>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#demo',
+            data: {
+                firstName: 'Foo',
+                lastName: 'Bar',
+                fullName: 'Foo Bar',
+            },
+            // it is often a better idea to use a computed 
+            // property rather than an imperative watch callback. 
+            watch: {
+                firstName: function (val) {
+                    this.fullName = val + ' ' + this.lastName
+                },
+                lastName: function (val) {
+                    this.fullName = this.firstName + ' ' + val
+                }
+            },
+            computed: {
+                fullNameComputed: function () {
+                    return this.firstName + ' ' + this.lastName
+                },
+                //Computed properties are by default getter-only,
+                // but you can also provide a setter when you need it:
+                // It is easy to combile firstName and lastName
+                // but if you want to split those from fullName 
+                // computer setter will do the job
+                fullName: {
+                    // getter
+                    get: function () {
+                        return this.firstName + ' ' + this.lastName
+                    },
+                    // setter
+                    set: function (newValue) {
+                        var names = newValue.split(' ')
+                        // This is not updating the fullNameComputed
+                        // I believe the firstName and lastName updated in this
+                        // setter will reflect change in fullNameComputed.
+                        // But not
+                        // this.firstName = names[0]
+                        // this.lastName = names[names.length - 1]
+
+
+                        vm.$data.firstName = names[0]
+                        vm.$data.lastName = names[names.length - 1]
+                    }
+                }
+            }
+        })
+
+        // Change the lastName to update only last name in full name
+        setTimeout(() => {
+            vm.$data.lastName = "what"
+        }, 1000);
+
+        // Change full name to update first and last name using
+        // setter of fullname computed property
+
+        setTimeout(() => {
+            vm.$data.fullName = "Shahm Nattarshah"
+        }, 1000);
+
+    </script>
+</body>
+
+</html>

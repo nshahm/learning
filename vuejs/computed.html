@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+
+<head>
+    <title>
+    </title>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+</head>
+
+<body>
+    <div id="example">
+        <p>Original message: "{{ message }}"</p>
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+        <p>Computed reversed message by calling reverseMessage(): "{{ reverseMessage() }}"</p>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#example',
+            data: {
+                message: 'Hello'
+            },
+            methods: {
+                reverseMessage: function () {
+                    return this.message.split('').reverse().join('')
+                },
+                now: function () {
+                    return Date.now()
+                }
+            },
+            // Computed Caching vs Methods
+            //-----------------------------
+            // method will run the function everytime it is invoked
+            // computed will cache the result and return it until the 
+            // original dependent property is not changed
+            // now function inside method always re-evaluate the Date.now()
+            // so this method is not a contender for computed section.
+
+            
+            computed: {
+                // a computed getter
+                reversedMessage: function () {
+                    // `this` points to the vm instance
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        })
+
+        setTimeout(() => {
+            vm.message = "whatever"
+        }, 1000);
+    </script>
+</body>
+
+</html>

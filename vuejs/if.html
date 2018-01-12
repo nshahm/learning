@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+
+<head>
+    <title>
+    </title>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+</head>
+
+<body>
+    <div id="vue-app">
+        <span v-if="show">{{message}}</span>
+        <span v-if="!show">Message not displayed</span>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#vue-app',
+            data: {
+                show: false,
+                message: "Shahm Nattarshah"
+            }
+        })
+    </script>
+</body>
+
+</html>

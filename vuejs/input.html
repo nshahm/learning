@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+
+<head>
+    <title>Vue sample</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+</head>
+
+<body>
+    <div id="vue-app" class="vue">
+       Count : {{length }} 
+       <input v-model="length"></input>
+       Info : {{info}}
+       <button v-on:click="calculateLength">Calculate</button>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#vue-app',
+            data: {
+                length : 0,
+                info: 'Welcome to Vuejs for the first time'
+            },
+            methods: {
+                calculateLength : function() {
+                    console.log('entered')
+                    this.length = new String(this.info).length
+                    console.log(this.length)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

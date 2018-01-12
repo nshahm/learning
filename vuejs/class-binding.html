@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+    <title>class and style binding</title>
+</head>
+
+<body>
+    <style>
+        .active {
+            color: blue
+        }
+
+        .text-danger {
+            color: red
+        }
+
+        .success {
+            color: cyan
+        }
+
+        .warning {
+            background-color: lightsalmon
+        }
+    </style>
+    <div id="vue-app">
+        <!-- Using object syntax {} -->
+        <div v-bind:class="{ active: isActive, 'text-danger': hasError}">
+            The color of this text will be blue if active class is loaded. And will be red if text-danger class is loaded
+        </div>
+        <!-- Using computed function - powerful -->
+        <div v-bind:class="classObjectComputed">
+                The color of this text will be blue if active class is loaded. And will be red if text-danger class is loaded
+                Using the classObject as computed function
+        </div>
+        <!-- usingClassObject inside data -->
+        <div v-bind:class="classObject">
+            CSS using classobject
+        </div>
+
+        <!-- Using array syntax -->
+        <div v-bind:class="[activeClass, errorClass]">
+            Using array syntax
+        </div>
+        <div v-bind:class="[isActive ? activeClass: '', errorClass]">
+            Using array syntax with condition (ternary operator)
+        </div>
+        <div v-bin:class="[ {active: isActive}, errorClass]">
+            Using array syntax inside not using ternary but using OBJECT syntax            
+        </div>
+        <div>
+
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#vue-app',
+            data: {
+                isActive: true,
+                hasError: false,
+                classObject: {
+                    success: true,
+                    warning: false
+                },
+                error : null,
+                activeClass : 'active',
+                errorClass : 'text-danger'
+            },
+            // We can also bind to a computed property that 
+            // returns an object. This is a common and powerful pattern
+            computed: {
+                classObjectComputed : function() {
+                    return {
+                        active: this.isActive && !this.hasError,
+                        'text-danger': this.error && this.error.type === 'fatal'
+                    }
+                }
+            }
+        })
+
+        var flag = false
+        setInterval(() => {
+
+
+            if (flag) {
+                vm.$data.isActive = true
+                vm.$data.hasError = false
+                vm.$data.classObject.success = false
+                vm.$data.classObject.warning = true
+                flag = false
+            } else {
+                vm.$data.isActive = false
+                vm.$data.hasError = true
+
+                vm.$data.classObject.success = true
+                vm.$data.classObject.warning = false
+                flag = true
+            }
+
+        }, 1000);
+
+    </script>
+</body>
+
+</html>
