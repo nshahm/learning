@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-for</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+</head>
+
+<body>
+
+    <div id="vue-app">
+        <!-- iterate name using 'in' -->
+        <ul>
+            <li v-for="name in names">
+                {{ name }}
+            </li>
+        </ul>
+
+        <!-- iterate name with index -->
+        <ul>
+            <li v-for="(name, index) in names">
+                {{parent}} (Access to parent scope inside for loop - {{ name }} in index {{index}}
+            </li>
+        </ul>
+
+        <!-- iterate name using 'of'-->
+        <ul>
+            <li v-for="name of names">
+                Using 'of' operator in v-for {{ name }}
+            </li>
+        </ul>
+
+        <!-- Using object in loop -->
+        <ul>
+            <li v-for="value in object">
+                {{ value }}
+            </li>
+        </ul>
+
+        <!-- Access key in object -->
+        <div v-for="(value, key) in object">
+            Access key in object --- {{ key }}: {{ value }}
+        </div>
+
+        <!-- Access key and index in object -->
+        <div v-for="(value, key, index) in object">
+            Access key and index in object --- {{ index }}. {{ key }}: {{ value }}
+        </div>
+
+        <!-- Using key in v-for wherever possible -->
+        <div v-for="item in items" :key="item.id">
+            Showing name : {{ item }} with :key item.id {{item.id}}
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#vue-app',
+            data: {
+                names: [
+                    'Shahm Nattarshah',
+                    'Ghazni Nattarshah'
+                ],
+                parent: 'Parent',
+                object: {
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    age: 30
+                },
+                items: [
+                    { message: 'Foo' },
+                    { message: 'Bar' }
+                ]
+            },
+        })
+
+
+        setTimeout(() => {
+            // Array mutation methods observed in vue so it automatically updated View (UI).
+            vm.$data.items.push({message : 'Added New items using array push() which will update UI'})
+        }, 1000);
+
+        setTimeout(() => {
+            console.log('Removing - using array pop()')
+            vm.$data.items.pop()
+        }, 2000);
+
+        // Array mutation methods support
+        // push()
+        // pop()
+        // shift()
+        // unshift()
+        // splice()
+        // sort()
+        // reverse()
+
+
+    </script>
+</body>
+
+</html>

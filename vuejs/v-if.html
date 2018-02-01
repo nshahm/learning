@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-if</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+</head>
+
+<body>
+    <div id="vue-app">
+        <h1 v-if="ok">Yes</h1>
+        <h1 v-else>No</h1>
+
+        <!-- v-if with group on templates, no need to add v-if to individual
+        elements -->
+        <template v-if="ok">
+            <h1>Title</h1>
+            <p>Paragraph 1</p>
+            <p>Paragraph 2</p>
+        </template>
+
+        <!-- v-else -->
+        <div v-if="Math.random() > 0.5">
+            Now you see me
+        </div>
+        <div v-else>
+            Now you don't
+        </div>
+
+        <!-- v-else-if -->
+        <div v-if="type === 'A'">
+            A
+        </div>
+
+        <div v-else-if="type === 'B'">
+            B
+        </div>
+
+        <div v-else="type === 'C'">
+            C
+        </div>
+
+
+        <!-- Controlling Reussable elements with Key and template can be 
+        grouped in v-else part 
+    
+            Problem: Toggle type will not erase the input box content
+            what user entered. 
+
+            So adding key in <input>
+    -->
+        <template v-if="loginType === 'username'">
+            <label>Username</label>
+            <input placeholder="Enter your username" key="username">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Enter your email address" key="email">
+        </template>
+        <button @click="toggleType">Toggle Login Type</button>
+
+
+        <!-- v-show 
+        Renders in DOM but hidden using css display property
+
+        v-if will destroy the dom if the condition is satisfied
+        
+            v-if vs v-show
+            Generally speaking, v-if has higher toggle costs
+            while v-show has higher initial render costs. 
+            So prefer v-show if you need to toggle something very often,
+            and prefer v-if if the condition is unlikely to change at runtime.
+    -->
+
+        <h1 v-show="ok">Hello!</h1>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#vue-app',
+            data: {
+                ok: true,
+                type: 'B',
+                loginType: ''
+
+            },
+            methods: {
+                toggleType: function () {
+                    if (this.loginType === 'username') {
+
+                        this.loginType = ''
+                    } else {
+
+                        this.loginType = 'username'
+                    }
+                }
+            }
+        })
+
+        setTimeout(() => {
+            vm.$data.ok = false
+        }, 1000);
+
+    </script>
+</body>
+
+</html>
