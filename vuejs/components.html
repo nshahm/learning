@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Components</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+</head>
+
+<body>
+    <div id="vue-app">
+        <input type="text" v-model="message" placeholder="Enter message">
+        <global-component></global-component>
+
+        <!-- v-bind (evaluate as javascript expression) pass the actual number and prop param passes as string  -->
+        <!-- this passes down a plain string "1" -->
+        <comp some-prop="1"></comp>
+        <!-- this passes down an actual number -->
+        <comp v-bind:some-prop="1"></comp>
+
+        <local-scope-component v-bind:obj="object" v-bind:param-string="message"></local-scope-component>
+
+        <!-- One way data flow
+            NOTE on component
+        All props form a one-way-down binding between the child property and the parent one:
+         when the parent property updates, it will flow down to the child, but not the other way around. 
+         This prevents child components from accidentally mutating the parent’s state,
+          which can make your app’s data flow harder to understand.
+
+          Note that objects and arrays in JavaScript are passed by reference, 
+          SO IF THE PROP IS AN ARRAY OR OBJECT, MUTATING THE OBJECT OR ARRAY ITSELF 
+          INSIDE THE CHILD WILL AFFECT PARENT STATE.
+        
+        -->
+
+        <prop-validation :prop-a="1" prop-b="12" prop-c="2" prop-d="23" prop-f="2"></prop-validation>
+
+        <!-- Using v-on with Custom Events -->
+        <p>Using v-on with Custom Events</p>
+    </div>
+
+    <script>
+        // Global components
+        Vue.component('global-component', {
+            template: `<div> custom component using Vue global component
+                            
+                        </div>`,
+
+        })
+
+        // Global comp
+        Vue.component('comp', {
+            template: `<div> {{someProp}} </div>`,
+            props: ['someProp']
+        })
+
+        // Vue component with Prop Validation
+        //
+        // String
+        // Number
+        // Boolean
+        // Function
+        // Object
+        // Array
+        // Symbol
+        //
+        Vue.component('prop-validation', {
+            template: `
+            <div>
+                <p> PropA : {{propA}} </p>
+                <p> PropB : {{propB}} </p>
+                <p> PropC : {{propC}} </p>
+                <p> PropD : {{propD}} </p>
+                <p> PropE : {{propE}} </p>
+                <p> PropF : {{propF}} </p>
+            </div>    
+            `,
+            props: {
+                // basic type check (`null` means accept any type)
+                propA: Number,
+                // multiple possible types
+                propB: [String, Number],
+                // a required string
+                propC: {
+                    type: String,
+                    required: true
+                },
+                // a number with default value
+                propD: {
+                    type: Number,
+                    default: 100
+                },
+                // object/array defaults should be returned from a
+                // factory function
+                propE: {
+                    type: Object,
+                    default: function () {
+                        return { message: 'hello' }
+                    }
+                },
+                // custom validator function
+                propF: {
+                    validator: function (value) {
+                        return value > 10
+                    }
+                }
+            }
+        })
+
+        // Registering a local component
+        // You can make a component available only in the scope of another 
+        // instance/component by registering it with the components
+        var child = {
+            template: `<div> child component - Message from parent <B> {{ paramString }} </B>
+                        <p>Passing object to child</p>
+                        <span> {{obj}} </span>
+                        </div>`,
+            props: ['paramString', 'obj'],
+        }
+
+        var vm = new Vue({
+            el: '#vue-app',
+            data: {
+                message: 'hello',
+                object: {
+                    variable1: 'what',
+                    variable2: 'why',
+                    variable3: 'how'
+                }
+            },
+            components: {
+                'local-scope-component': child
+            }
+        })
+    </script>
+</body>
+
+</html>

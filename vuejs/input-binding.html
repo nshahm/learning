@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Input Binding</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+
+</head>
+
+<body>
+    <div id="vue-app">
+        <p>
+            <input type="text" v-model="message" placeholder="Enter some text"> {{ message }}
+
+            <div>Multiline message is:</div>
+            <p style="white-space: pre-line;">{{ multilinemessage }}</p>
+            <br>
+            <!-- Interpolation on textareas (<textarea>{{text}}</textarea>) won't work. Use v-model instead. -->
+            <textarea v-model="multilinemessage" placeholder="add multiple lines"></textarea>
+            <input type="checkbox" id="checkbox" v-model="checked">
+            <label for="checkbox"> {{ checked }}</label>
+
+            <br>
+            <p> Multiple checkbox</p>
+            <div id='multiple-checkbox'>
+                <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+                <label for="jack">Jack</label>
+                <input type="checkbox" id="john" value="John" v-model="checkedNames">
+                <label for="john">John</label>
+                <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+                <label for="mike">Mike</label>
+                <br>
+                <span>Checked names: {{ checkedNames }}</span>
+            </div>
+            <div id="radio">
+                <input type="radio" id="one" value="One" v-model="picked">
+                <label for="one">One</label>
+                <br>
+                <input type="radio" id="two" value="Two" v-model="picked">
+                <label for="two">Two</label>
+                <br>
+                <span>Picked: {{ picked }}</span>
+            </div>
+            <div id="select">
+                <!-- If the initial value of your v-model expression does not match any 
+                    of the options, the <select> element will render in an “unselected” state. 
+                        On iOS this will cause the user not being able to select the first item because 
+                        iOS does not fire a change event in this case. It is therefore recommended to provide 
+                        a disabled option with an empty value, as demonstrated in the example above. -->
+                <select v-model="selected">
+                    <option disabled value="">Please select one</option>
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                </select>
+                <span>Selected: {{ selected }}</span>
+            </div>
+            <div id="select-multiple">
+                <select v-model="selected" multiple>
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                </select>
+                <br>
+                <span>Selected: {{ selected }}</span>
+            </div>
+            <div>
+                <select v-model="selected">
+                    <option v-for="(value,key, index) in options" v-bind:value="value.val">
+                        {{ value.text }}
+                    </option>
+                </select>
+                <span>Selected: {{ selected }}</span>
+            </div>
+
+            <p>Value binding for checkbox, radio and select options </p>
+            <div>
+                <input type="checkbox" v-model="toggle" true-value="yes" false-value="no">
+                {{ toggle }}
+
+                <input type="checkbox" v-model="toggle" true-value="yes" false-value="no">
+                {{ toggle }}
+            </div>
+            <div>
+                <p>Using v-bind:value</p>
+                <input type="radio" v-model="picked" v-bind:value="toggle">
+            </div>
+            <div>
+                <select v-model="selected">
+                    <option v-bind:value="{number: 134}">134</option>
+                </select>
+            </div>
+            <div>
+                <p>Modifiers .lazy, .number, .trim</p>
+
+                <input v-model.lazy="modifier.msg"> {{ modifier.msg }}
+                <input v-model.number="modifier.num" type="number">
+            </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#vue-app',
+            data: {
+                message: '',
+                multilinemessage: '',
+                checked: false,
+                checkedNames: [],
+                picked: '',
+                selected: 'A',
+                options: [
+                    { text: 'Please select', val: '' },
+                    { text: 'One', val: 'A' },
+                    { text: 'Two', val: 'B' },
+                    { text: 'Three', val: 'C' }
+                ],
+                toggle :'whatever',
+                modifier : {
+                    msg :'',
+                    num : '',
+
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

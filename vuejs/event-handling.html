@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>event-handling</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript">
+    </script>
+</head>
+
+<body>
+    <div id="vue-app">
+        {{ counter }}
+        <button v-on:click="counter += 1 ">Add 1</button>
+        <button @click="showCounter">show counter in console</button>
+        <div>
+            <p> $event - access to the special event variable $event</p>
+            <button @click="hello('shahm', $event)">Hello with $event</button>
+            {{ name }}
+        </div>
+        <!-- Sometimes we also need to access the original DOM event in an inline statement handler. 
+            You can pass it into a method using the special $event variable: -->
+        <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+            event.preventDefault() javascript
+        </button>
+
+        <!-- These events are supported by vuejs
+            .stop
+            .prevent
+            .capture
+            .self
+            .once
+
+         -->
+        <p> Event Modifiers - to easily access event.preventDefault() or event.stopPropogation()</p>
+        <a @click.stop="callThis">eventPropogation.stop in vue with no wrapper method involved (event.stopPropogation)</a><a @click.stop="callThis">eventPropogation.stop in vue with no wrapper method involved</a>
+        <p></p>
+        <a href="alert('href')" @click.prevent="callThis">eventPropogation.preventDefault in vue with no wrapper not invoking href but only click (event.preventDefault)</a>
+        <p></p>
+        <div v-on:scroll.passive="onScroll">scroll</div>
+
+        <input @keyup.enter="callThis">
+        <input v-on:keyup.enter="callThis">
+        <input 
+            @keyup.f1="console.log('help')"
+            v-on:keyup.keyCodes.13="callThis"
+            @keyup.alt.67="clear" 
+            :value="text">
+
+        <p>Mouse button and .exact modifier</p>
+        <!-- Exact modifier will invoke only when , 
+        this will only fire when no system modifiers are pressed -->
+        <button @click.exact="onClick" @click.right.exact="onClick">Exact click</button>
+        <button @click.meta.exact="onCtrlClick">Metaclick</button>
+    </div>
+    <script>
+        // Config the custom keycode and the use it wherever it is necessary
+        Vue.config.keyCodes.f1 = 112
+
+        var vm = new Vue({
+            el: '#vue-app',
+            data: {
+                counter: 0,
+                name: '',
+                text: ''
+            },
+            methods: {
+                showCounter: function (event) {
+                    console.log("Counter value = ", this.counter)
+                    if (event) {
+                        console.log(event)
+                    }
+                },
+                incrementCounter: function () {
+                    this.counter += 1
+                },
+                hello: function (name, event) {
+                    this.name = "Hello " + name + " with event " + event
+                    console.log(this.name)
+                },
+                warn: function (message, event) {
+                    // now we have access to the native event
+                    if (event) event.preventDefault()
+                    alert(message)
+                },
+                callThis: function(){
+                    alert('invoked')
+                },
+                clear : function() {
+                    this.text = ''
+                },
+                onClick : function() {
+                    console.log('clicked')
+                },
+                onCtrlClick : function() {
+                    console.log('onCtrlClick')
+                }
+            }
+        })
+
+        setTimeout(() => {
+            vm.incrementCounter()
+            console.log("method invoked in console.")
+        }, 2000);
+    </script>
+</body>
+
+</html>
