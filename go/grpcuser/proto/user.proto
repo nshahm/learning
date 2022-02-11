@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package grpcuser;
+
+option go_package = "github.com/nshahm/learninggo;learninggo";
+
+service UserService {
+    rpc createUser (UserRequest) returns (UserResponse);
+}
+
+message UserRequest {
+    string firstName = 1;
+    string lastName = 2;
+    uint64 age = 3;
+};
+
+message UserResponse {
+    string id = 1;
+    string firstName = 2;
+    string lastName = 3;
+    uint64 age = 4;
+}

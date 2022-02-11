@@ -4,6 +4,8 @@ import (
 	"fmt"
 
 	"github.com/nshahm/learninggo/arrayslices"
+	grpcclient "github.com/nshahm/learninggo/grpcuser/client"
+	grpcserver "github.com/nshahm/learninggo/grpcuser/server"
 	"github.com/nshahm/learninggo/interfaces"
 
 	// "github.com/nshahm/learninggo/variables"
@@ -12,6 +14,7 @@ import (
 	"github.com/nshahm/learninggo/concurrency"
 	"github.com/nshahm/learninggo/condition"
 	"github.com/nshahm/learninggo/functions"
+
 	"github.com/nshahm/learninggo/loops"
 	"github.com/nshahm/learninggo/maps"
 	"github.com/nshahm/learninggo/types"
@@ -75,5 +78,12 @@ func main() {
 	
 	// Channels
 	concurrency.InvokeChannels(&wg)
+
+
+	// grpc
+	wg.Add(1)
+	go grpcserver.ListenGrpcServer();
+
+	grpcclient.CreateUserClient(&wg)
 	wg.Wait()
 }
