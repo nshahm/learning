@@ -1,3 +1,3 @@
-module github.com/nshahm/learning
+module github.com/nshahm/learninggo
 
 go 1.17

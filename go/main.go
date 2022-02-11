@@ -3,18 +3,18 @@ package main
 import (
 	"fmt"
 
-	"github.com/nshahm/learning/arrayslices"
-	"github.com/nshahm/learning/interfaces"
+	"github.com/nshahm/learninggo/arrayslices"
+	"github.com/nshahm/learninggo/interfaces"
 
-	// "github.com/nshahm/learning/variables"
+	// "github.com/nshahm/learninggo/variables"
 	"sync"
 
-	"github.com/nshahm/learning/concurrency"
-	"github.com/nshahm/learning/condition"
-	"github.com/nshahm/learning/functions"
-	"github.com/nshahm/learning/loops"
-	"github.com/nshahm/learning/maps"
-	"github.com/nshahm/learning/types"
+	"github.com/nshahm/learninggo/concurrency"
+	"github.com/nshahm/learninggo/condition"
+	"github.com/nshahm/learninggo/functions"
+	"github.com/nshahm/learninggo/loops"
+	"github.com/nshahm/learninggo/maps"
+	"github.com/nshahm/learninggo/types"
 )
 
 var (
