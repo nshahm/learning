@@ -3,7 +3,6 @@ package concurrency
 import (
 	"fmt"
 	"sync"
-	"time"
 )
 
 var chMultipleUsingSelect = make(chan string, 50)
@@ -25,11 +24,11 @@ func InvokeChannels(wg *sync.WaitGroup) {
 	// Channel using select
 
 	// wg.Add(1)
-	SendManySelect()
-	go ReceiveManySelect(wg)
+	// SendManySelect()
+	// go ReceiveManySelect(wg)
 	
-	time.Sleep(time.Second * 5)
-	doneReceiver <- struct{}{}
+	// time.Sleep(time.Second * 5)
+	// doneReceiver <- struct{}{}
 }
 
 func Receive(receiver <-chan string, wg *sync.WaitGroup) {
@@ -57,7 +56,7 @@ func ReceiveMany(receiver <-chan string, wg *sync.WaitGroup) {
 	// for message := range receiver {
 	// 	fmt.Printf("Receive Many using range %v\n", message)
 	// }
-	// wg.Done()
+	wg.Done()
 }
 
 func SendMany(sender chan<- string, wg *sync.WaitGroup) {
@@ -89,7 +88,6 @@ func ReceiveManySelect(wg *sync.WaitGroup) {
 				// close(chMultipleUsingSelect)
 				close(chMultipleUsingSelect)
 				// break;
-			
 		}
 	}
 
