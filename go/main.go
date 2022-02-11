@@ -2,17 +2,19 @@ package main
 
 import (
 	"fmt"
-	"learninggo/arrayslices"
-	"learninggo/interfaces"
 
-	// "learninggo/variables"
-	"learninggo/concurrency"
-	"learninggo/condition"
-	"learninggo/functions"
-	"learninggo/loops"
-	"learninggo/maps"
-	"learninggo/types"
+	"github.com/nshahm/learning/arrayslices"
+	"github.com/nshahm/learning/interfaces"
+
+	// "github.com/nshahm/learning/variables"
 	"sync"
+
+	"github.com/nshahm/learning/concurrency"
+	"github.com/nshahm/learning/condition"
+	"github.com/nshahm/learning/functions"
+	"github.com/nshahm/learning/loops"
+	"github.com/nshahm/learning/maps"
+	"github.com/nshahm/learning/types"
 )
 
 var (
