@@ -33,9 +33,9 @@ func CreateUserClient(wg *sync.WaitGroup) {
 
 	userResponse, err := client.CreateUser(ctx, &newUser)
 	if err != nil {
-		fmt.Printf("Error in creating user %v", err)
+		fmt.Printf("Error in creating user %v\n", err)
 	}
-	fmt.Printf("User response %v", userResponse);
+	fmt.Printf("User response %v \n", userResponse);
 
 	wg.Done()
 	

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package grpcemployee;
+
+import "google/api/annotations.proto";
+
+option go_package = "github.com/nshahm/learninggo;learninggo";
+
+service EmployeeService {
+    rpc createEmployee (EmployeeRequest) returns (EmployeeResponse) {
+        option (google.api.http) = {
+            post: "/employee/create"
+            body: "*"
+        };
+    }
+}
+
+message EmployeeRequest {
+    string firstName = 1;
+    string lastName = 2;
+    uint64 age = 3;
+};
+
+message EmployeeResponse {
+    string id = 1;
+    string firstName = 2;
+    string lastName = 3;
+    uint64 age = 4;
+}

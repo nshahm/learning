@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/nshahm/learninggo/arrayslices"
+	grpcemployee "github.com/nshahm/learninggo/grpcemployee/api"
 	grpcclient "github.com/nshahm/learninggo/grpcuser/client"
 	grpcserver "github.com/nshahm/learninggo/grpcuser/server"
 	"github.com/nshahm/learninggo/interfaces"
@@ -84,6 +86,15 @@ func main() {
 	wg.Add(1)
 	go grpcserver.ListenGrpcServer();
 
+	// call grpc server to get userinfo
 	grpcclient.CreateUserClient(&wg)
+
+	// start the employee rest api using grpc gateway
+	wg.Add(1)
+	go grpcemployee.StartEmployeeRESTAPi()
+	time.Sleep(time.Second * 3);
+	grpcemployee.InvokeEmployeeRESTAPI(&wg)
+	
+
 	wg.Wait()
 }
